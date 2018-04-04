@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.24.5'
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
+    dexOptions {
+        maxProcessCount 8
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
+    }
+    defaultConfig {
+        versionCode rootProject.code
+        applicationId "ru.devsp.apps.keeppasswords"
+        minSdkVersion 17
+        targetSdkVersion 26
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        versionName rootProject.ver
+        vectorDrawables.useSupportLibrary = true
+        setProperty("archivesBaseName", "KeepPasswords-$versionName")
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            multiDexEnabled true
+            resValue "string", "build_app_name", "Keep Passwords"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "Boolean", "DEBUG_MODE", "false"
+            testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
+        }
+
+        debug {
+            minifyEnabled false
+            multiDexEnabled true
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-d"
+            resValue "string", "build_app_name", "Keep Passwords Debug"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "Boolean", "DEBUG_MODE", "true"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
+    }
+}
+
+dependencies {
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:cardview-v7:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "android.arch.lifecycle:extensions:$archComponentsVersion"
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$archComponentsVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    })
+    androidTestImplementation "com.android.support.test:runner:$testVersion"
+    androidTestImplementation "com.android.support.test:rules:$testVersion"
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+    testImplementation "android.arch.core:core-testing:$archComponentsVersion"
+    androidTestImplementation "android.arch.core:core-testing:$archComponentsVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+    implementation('com.crashlytics.sdk.android:crashlytics:2.7.0@aar') {
+        transitive = true
+    }
+}

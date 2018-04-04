@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Keep Passwords</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_categories">Группы</string>
+    <string name="action_added">Добавлено</string>
+    <string name="action_cancel">Отменить</string>
+    <string name="action_login">Войти</string>
+    <string name="action_add_field">Добавить поле</string>
+    <string name="action_make_backup">Сохранить</string>
+    <string name="action_restore_backup">Восстановить</string>
+
+    <string name="field_login">Имя пользователя</string>
+    <string name="field_password">Пароль</string>
+
+    <string-array name="array_field_types">
+        <item>Короткий текст</item>
+        <item>Число</item>
+        <item>Текст</item>
+        <item>Пароль</item>
+        <item>Одноразовый пароль</item>
+    </string-array>
+
+    <string name="field_title">Title</string>
+    <string name="field_number">Number</string>
+    <string name="field_month">Month</string>
+    <string name="field_year">Year</string>
+    <string name="field_cvv">CVV</string>
+    <string name="field_owner">Owner</string>
+    <string name="field_pin">PIN</string>
+    <string name="field_onetime_pass">One time password</string>
+
+    <string name="type_short_text">Short text</string>
+    <string name="type_number">Number</string>
+    <string name="type_note">Note</string>
+    <string name="type_password">Password</string>
+
+    <string name="group_accounts">Accounts</string>
+    <string name="group_email">E-mails</string>
+    <string name="group_cards">Credit cards</string>
+</resources>
